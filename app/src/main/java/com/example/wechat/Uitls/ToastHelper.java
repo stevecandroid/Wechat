@@ -22,7 +22,7 @@ public class ToastHelper {
      */
     public static void Toast(final Object o){
 
-        Global.getmCurrentActivity().runOnUiThread(new Runnable() {
+        ActivityHelper.getTopActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if(null == mToast || !o.toString().equals(mObject.toString())){

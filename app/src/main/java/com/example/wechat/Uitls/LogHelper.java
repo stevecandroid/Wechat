@@ -13,7 +13,7 @@ public class LogHelper {
      * Default Logger(wechat)
      * @param o Object that you want to log
      */
-    public static void Log(Object o){
+    public static void e(Object o){
         Log.e("wechat",o.toString());
     }
 
@@ -22,7 +22,7 @@ public class LogHelper {
      * @param what The key
      * @param o Object that you want to log
      */
-    public static void Log(String what,Object o){
+    public static void e(String what,Object o){
         Log.e(what,o.toString());
     }
 }

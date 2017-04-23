@@ -1,4 +1,4 @@
-package com.example.wechat.Activity;
+package com.example.wechat.Activity.Start;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -11,6 +11,7 @@ import com.example.wechat.Activity.Login_Register.Register;
 import com.example.wechat.Chat.Message;
 import com.example.wechat.R;
 import com.example.wechat.Uitls.ActivityHelper;
+import com.example.wechat.Uitls.IntentHelper;
 import com.example.wechat.Uitls.LogHelper;
 import com.example.wechat.Uitls.ToastHelper;
 import com.google.gson.Gson;
@@ -38,10 +39,7 @@ public class Start extends AppCompatActivity {
         ActivityHelper.addActivity(this);
         setContentView(R.layout.activity_start);
         initBmob();
-
-        Intent intent = new Intent(this, Register.class);
-        startActivity(intent);
-
+        checkCurrentUser();
 //        BmobUser bu = new BmobUser();
 //        bu.setUsername("fucker");
 //        bu.setPassword("sucker");
@@ -62,7 +60,7 @@ public class Start extends AppCompatActivity {
         rtd.start(this, new ValueEventListener() {
             @Override
             public void onConnectCompleted() {
-                ToastHelper.Toast("陈工");
+                ToastHelper.Toast("ConnectCompleted");
                 rtd.subTableUpdate("Chat");
             }
 
@@ -92,8 +90,9 @@ public class Start extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        LogHelper.Log(grantResults.length);
+        LogHelper.e(grantResults.length);
         if(grantResults.length == 2 && grantResults[0] == PERMISSION_GRANTED && grantResults[1] == PERMISSION_GRANTED){
+            initBmob();
             //TODO 申请到了权限做点事情
         }
         else{
@@ -113,5 +112,19 @@ public class Start extends AppCompatActivity {
 //                .setFileExpiration(1800) 文件过期时间
                 .build();
         Bmob.initialize(config);
+    }
+
+    /**
+     * 检查最近登录是否有效
+     */
+    private void checkCurrentUser(){
+        BmobUser bmobUser = BmobUser.getCurrentUser(this);
+        if(bmobUser != null){
+            //TODO 有效则让用户通过
+            IntentHelper.startActivity(this, Register.class);
+        }else{
+            //TODO 无效则去注册界面
+            IntentHelper.startActivity(this, Register.class);
+        }
     }
 }

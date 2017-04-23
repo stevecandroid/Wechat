@@ -3,4 +3,11 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="colcorGrey">#f0f2f5</color>
+    <color name="colcorDeepGrey">#40403b</color>
+    <color name="colcorWhite">#ffffffff</color>
+    <color name="colcorBule">#4698f4</color>
+    <color name="toolBarGrey">#292e32</color>
 </resources>
