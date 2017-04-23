@@ -28,12 +28,7 @@ public class ToastHelper {
                 mToast.setText(o.toString());
             }
         }
-        Global.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mToast.show();
-            }
-        });
+        mToast.show();
 
     }
 }

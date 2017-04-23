@@ -3,6 +3,7 @@ package com.example.wechat.GlobalVariable;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 /**
  * Created by 铖哥 on 2017/4/23.
@@ -16,9 +17,6 @@ public class Global extends Application {
         return mContext;
     }
 
-    public static Activity getActivity(){
-        return (Activity) mContext;
-    }
 
 
 
@@ -30,6 +28,7 @@ public class Global extends Application {
 
     @Override
     public void onCreate() {
+        Log.d("sad","asdasdas");
         mContext = getApplicationContext();
         super.onCreate();
     }
