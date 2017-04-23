@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Global.setmCurrentActivity(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ToastHelper.Toast(1);
