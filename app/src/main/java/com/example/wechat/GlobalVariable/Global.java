@@ -1,5 +1,6 @@
 package com.example.wechat.GlobalVariable;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
@@ -9,13 +10,15 @@ import android.content.Context;
 
 public class Global extends Application {
 
-    private static Context context;
+    private static Context mContext;
 
-    private static Context getContext(){
-        return context;
+    public static Context getContext(){
+        return mContext;
     }
 
-
+    public static Activity getActivity(){
+        return (Activity) mContext;
+    }
 
 
 
@@ -27,7 +30,7 @@ public class Global extends Application {
 
     @Override
     public void onCreate() {
-        context = getApplicationContext();
+        mContext = getApplicationContext();
         super.onCreate();
     }
 
