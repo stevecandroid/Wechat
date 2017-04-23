@@ -20,17 +20,19 @@ public class ToastHelper {
      * ObjectToastHelper
      * @param o Object that you want to toast;
      */
-    public static void Toast(Object o){
-        if(null == mToast || !o.toString().equals(mObject.toString())){
-            if(null == mToast){
-                mToast = Toast.makeText(Global.getContext(),o.toString(),Toast.LENGTH_SHORT);
-            } else {
-                mToast.setText(o.toString());
-            }
-        }
+    public static void Toast(final Object o){
+
         Global.getmCurrentActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                if(null == mToast || !o.toString().equals(mObject.toString())){
+                    if(null == mToast){
+                        mToast = Toast.makeText(Global.getContext(),o.toString(),Toast.LENGTH_SHORT);
+                    } else {
+                        mToast.setText(o.toString());
+                    }
+                    mObject = o;
+                }
                 mToast.show();
             }
         });

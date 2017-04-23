@@ -17,7 +17,23 @@ public class MainActivity extends AppCompatActivity {
         Global.setmCurrentActivity(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ToastHelper.Toast(1);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for(int i = 0;i<10;i++){
+                    ToastHelper.Toast(i);
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+
+
+
         
 
     }
