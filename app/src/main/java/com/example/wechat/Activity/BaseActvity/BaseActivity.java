@@ -1,9 +1,11 @@
-package com.example.wechat.Activity;
+package com.example.wechat.Activity.BaseActvity;
 
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.wechat.Activity.ChatActivity.ChatActivity;
+import com.example.wechat.Activity.Login_Register.Login;
 import com.example.wechat.Activity.Login_Register.Register;
+import com.example.wechat.Activity.MainActivity.MainActivity;
 import com.example.wechat.Presenter.Presenter;
 import com.example.wechat.Uitls.IntentHelper;
 
@@ -27,10 +29,10 @@ public class BaseActivity extends AppCompatActivity {
     protected void checkCurrentUser() {
         if (mPresenter.checkCurrentUser(this)) {
             //TODO 有效则让用户通过
-            IntentHelper.startActivity(this, ChatActivity.class);
+            IntentHelper.startActivity(this, MainActivity.class);
         } else {
             //TODO 无效则去注册或登录界面
-            IntentHelper.startActivity(this, Register.class);
+            IntentHelper.startActivity(this,Login.class);
         }
     }
 

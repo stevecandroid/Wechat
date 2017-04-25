@@ -13,7 +13,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
-import com.example.wechat.Activity.BaseActivity;
+import com.example.wechat.Activity.BaseActvity.BaseActivity;
 import com.example.wechat.Activity.MainActivity.MainActivity;
 import com.example.wechat.R;
 import com.example.wechat.Uitls.IntentHelper;
@@ -44,8 +44,8 @@ public class Register extends BaseActivity implements View.OnClickListener{
 //       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
        email = (EditText) findViewById(R.id.et_email);
        password = (EditText) findViewById(R.id.et_password);
-       account = (EditText) findViewById(R.id.et_account);
-       register = (Button) findViewById(R.id.bt_register);
+       account = (EditText) findViewById(R.id.et_account_login);
+       register = (Button) findViewById(R.id.bt_login);
        checkBox = (CheckBox)findViewById(R.id.checkBox) ;
        register.setOnClickListener(this);
        register.setClickable(false);
@@ -66,7 +66,7 @@ public class Register extends BaseActivity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.bt_register:
+            case R.id.bt_login:
                int status = mPresenter.register(account.getText().toString(),email.getText().toString(),password.getText().toString());
         }
     }
@@ -88,6 +88,7 @@ public class Register extends BaseActivity implements View.OnClickListener{
             int status = intent.getIntExtra("status",202);
             if(status == SUCCESS){
                 IntentHelper.startActivity(Register.this, MainActivity.class);
+                finish();
             } else if(status == ACCOUNT_ERROR){
                 ToastHelper.Toast("ACCOUNT_ERROR");
             } else if(status == EMAIL_ERROR){

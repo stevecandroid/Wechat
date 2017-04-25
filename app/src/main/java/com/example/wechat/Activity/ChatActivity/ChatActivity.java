@@ -1,26 +1,31 @@
 package com.example.wechat.Activity.ChatActivity;
 
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.wechat.Activity.BaseActivity;
+import com.example.wechat.Activity.BaseActvity.BaseActivity;
+import com.example.wechat.Activity.Login_Register.Login;
 import com.example.wechat.Activity.Login_Register.Register;
+import com.example.wechat.Activity.MainActivity.MainActivity;
 import com.example.wechat.Chat.Message;
 import com.example.wechat.R;
 import com.example.wechat.Table.Chat;
+import com.example.wechat.Uitls.ActivityHelper;
 import com.example.wechat.Uitls.IntentHelper;
 import com.example.wechat.Uitls.LogHelper;
 import com.example.wechat.Uitls.ToastHelper;
+import com.example.wechat.WeChatApplication;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -48,10 +53,12 @@ public class ChatActivity extends BaseActivity{
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IntentHelper.startActivity(ChatActivity.this, Register.class);
+                IntentHelper.startActivity(ChatActivity.this, MainActivity.class);
             }
         });
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -111,6 +118,12 @@ public class ChatActivity extends BaseActivity{
     }
 
     @Override
+    protected void onDestroy() {
+        LogHelper.e("destory");
+        super.onDestroy();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
         return true;
@@ -120,7 +133,7 @@ public class ChatActivity extends BaseActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.unregister){
             BmobUser.logOut(this);
-            IntentHelper.startActivity(this, Register.class);
+            IntentHelper.startActivity(this, Login.class);
             finish();
         }
         return true;
