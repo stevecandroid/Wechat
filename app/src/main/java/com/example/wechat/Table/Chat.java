@@ -9,6 +9,16 @@ import cn.bmob.v3.BmobObject;
 public class Chat extends BmobObject {
     String message;
 
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    String from;
+
     public String getMessage() {
         return message;
     }

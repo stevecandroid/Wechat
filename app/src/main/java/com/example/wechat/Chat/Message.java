@@ -9,6 +9,17 @@ public class Message {
     String message;
     String createAt;
     String objectld;
+    String from;
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+
 
     public String getMessage() {
         return message;

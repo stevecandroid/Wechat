@@ -1,9 +1,8 @@
 package com.example.wechat.Uitls;
 
-import android.app.Activity;
 import android.widget.Toast;
 
-import com.example.wechat.GlobalVariable.Global;
+import com.example.wechat.WeChatApplication;
 
 /**
  * 项目名： Wechat
@@ -27,7 +26,7 @@ public class ToastHelper {
             public void run() {
                 if(null == mToast || !o.toString().equals(mObject.toString())){
                     if(null == mToast){
-                        mToast = Toast.makeText(Global.getContext(),o.toString(),Toast.LENGTH_SHORT);
+                        mToast = Toast.makeText(WeChatApplication.getContext(),o.toString(),Toast.LENGTH_SHORT);
                     } else {
                         mToast.setText(o.toString());
                     }

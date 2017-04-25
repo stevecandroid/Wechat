@@ -15,7 +15,7 @@ public class IntentHelper {
      * @param context
      * @param cls
      */
-    public static void startActivity(Context context,Class<?> cls){
+    public static void startActivity(Context context,Class<?> cls) {
         Intent mIntent = new Intent(context,cls);
         context.startActivity(mIntent);
     }

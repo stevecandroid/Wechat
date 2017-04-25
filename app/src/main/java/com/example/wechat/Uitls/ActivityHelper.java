@@ -20,12 +20,14 @@ public class ActivityHelper {
         activities.add(activity);
     }
 
+
     /**
      * @param activity the activity that you want to remove from backStack
      */
     public static void removeActivity(Activity activity){
         activities.remove(activity);
     }
+
 
     /**
      * clear the stack
@@ -36,6 +38,7 @@ public class ActivityHelper {
         }
         activities.clear();
     }
+
 
     /**
      * return activity which is at the top of the stack
