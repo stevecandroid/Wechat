@@ -41,7 +41,8 @@
         <activity android:name=".Activity.Login_Register.Register" />
         <activity android:name=".Activity.MainActivity.MainActivity"></activity>
 
-        <activity android:name=".Activity.Login_Register.ChatActivity.ChatActivity"></activity>
+        <activity android:name=".Activity.ChatActivity.ChatActivity"
+            android:label="多人聊天室"></activity>
     </application>
 
 </manifest>

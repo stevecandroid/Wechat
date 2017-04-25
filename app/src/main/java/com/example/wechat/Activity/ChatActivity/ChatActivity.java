@@ -1,18 +1,24 @@
-package com.example.wechat.Activity.Login_Register.ChatActivity;
+package com.example.wechat.Activity.ChatActivity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.wechat.Activity.BaseActivity;
+import com.example.wechat.Activity.Login_Register.Register;
 import com.example.wechat.Chat.Message;
 import com.example.wechat.R;
 import com.example.wechat.Table.Chat;
+import com.example.wechat.Uitls.IntentHelper;
 import com.example.wechat.Uitls.LogHelper;
 import com.example.wechat.Uitls.ToastHelper;
 import com.google.gson.Gson;
@@ -22,7 +28,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobRealTimeData;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.SaveListener;
@@ -34,12 +39,24 @@ import cn.bmob.v3.listener.ValueEventListener;
 
 public class ChatActivity extends BaseActivity{
     List<Message> messageList;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.message_box);
-
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IntentHelper.startActivity(ChatActivity.this, Register.class);
+            }
+        });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(0xff212121);
+        }
         messageList = new ArrayList<>();
         final RecyclerView rv_message = (RecyclerView) findViewById(R.id.rv_message);
 
@@ -92,4 +109,21 @@ public class ChatActivity extends BaseActivity{
         });
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.unregister){
+            BmobUser.logOut(this);
+            IntentHelper.startActivity(this, Register.class);
+            finish();
+        }
+        return true;
+    }
+
 }

@@ -3,7 +3,9 @@ package com.example.wechat.Model;
 import android.content.Context;
 
 import com.example.wechat.Activity.Login_Register.Register;
+import com.example.wechat.Uitls.ActivityHelper;
 import com.example.wechat.Uitls.IntentHelper;
+import com.example.wechat.WeChatApplication;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobConfig;

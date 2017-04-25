@@ -1,4 +1,4 @@
-package com.example.wechat.Activity.Login_Register.ChatActivity;
+package com.example.wechat.Activity.ChatActivity;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,11 +9,9 @@ import android.widget.TextView;
 
 import com.example.wechat.Chat.Message;
 import com.example.wechat.R;
-import com.example.wechat.Uitls.ActivityHelper;
 import com.example.wechat.WeChatApplication;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 import cn.bmob.v3.BmobUser;
 

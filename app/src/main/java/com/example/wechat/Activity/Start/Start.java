@@ -38,7 +38,7 @@ public class Start extends BaseActivity {
         setContentView(R.layout.activity_start);
         initBmob();
 
-        checkCurrentUser();
+
 
 //        BmobUser bu = new BmobUser();
 //        bu.setUsername("fucker");
@@ -55,6 +55,19 @@ public class Start extends BaseActivity {
 //                ToastHelper.Toast(s);
 //            }
 //        });
+
+        new Thread(new Runnable(){
+            @Override
+            public void run(){
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                checkCurrentUser();
+            }
+        }).start();
 
 
 
@@ -77,6 +90,7 @@ public class Start extends BaseActivity {
         LogHelper.e(grantResults.length);
         if(grantResults.length == 2 && grantResults[0] == PERMISSION_GRANTED && grantResults[1] == PERMISSION_GRANTED){
             initBmob();
+            checkCurrentUser();
             //TODO 申请到了权限做点事情
         }
         else{
