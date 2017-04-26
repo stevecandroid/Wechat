@@ -1,12 +1,15 @@
 package com.example.wechat.Activity.MainActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.wechat.Activity.BaseActvity.BaseActivity;
 import com.example.wechat.Activity.ChatActivity.ChatActivity;
 import com.example.wechat.R;
+import com.example.wechat.Service.DataChangeService;
 import com.example.wechat.Uitls.IntentHelper;
 import com.example.wechat.Uitls.LogHelper;
 
@@ -28,6 +31,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Intent intent = new Intent(this, DataChangeService.class);
+        startService(intent);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

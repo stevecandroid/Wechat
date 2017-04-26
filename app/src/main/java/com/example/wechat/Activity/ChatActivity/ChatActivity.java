@@ -1,6 +1,10 @@
 package com.example.wechat.Activity.ChatActivity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -43,17 +47,22 @@ import cn.bmob.v3.listener.ValueEventListener;
  */
 
 public class ChatActivity extends BaseActivity{
-    List<Message> messageList;
+    //List<Message> messageList;
     Toolbar toolbar;
+    RecyclerView rv_message;
+    ChatAdapter chatAdapter;
+    DataChangeReceiver dataChangeReceiver = new DataChangeReceiver();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        //注册广播接收器
+        register();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.message_box);
+        //设置toolbar属性
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,54 +73,41 @@ public class ChatActivity extends BaseActivity{
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(0xff212121);
         }
-        messageList = new ArrayList<>();
-        final RecyclerView rv_message = (RecyclerView) findViewById(R.id.rv_message);
 
-        final ChatAdapter chatAdapter = new ChatAdapter(messageList);
+        //messageList = new ArrayList<>();
+        rv_message = (RecyclerView) findViewById(R.id.rv_message);
+
+        chatAdapter = new ChatAdapter(WeChatApplication.messageList);
         rv_message.setAdapter(chatAdapter);
         LinearLayoutManager llm = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         rv_message.setLayoutManager(llm);
 
-        final BmobRealTimeData rtd = new BmobRealTimeData();
-        rtd.start(this, new ValueEventListener() {
-            @Override
-            public void onConnectCompleted() {
-                ToastHelper.Toast("ConnectCompleted");
-                rtd.subTableUpdate("Chat");
-            }
-
-            @Override
-            public void onDataChange(JSONObject jsonObject) {
-                Message message ;
-                Gson gson = new Gson();
-                LogHelper.e(jsonObject.optString("data"));
-                message = gson.fromJson(jsonObject.optString("data"), Message.class);
-                messageList.add(message);
-                chatAdapter.notifyItemInserted(messageList.size()-1);
-                rv_message.scrollToPosition(messageList.size()-1);
-            }
-        });
 
         final EditText et_message = (EditText) findViewById(R.id.et_message);
         Button bt_send = (Button) findViewById(R.id.bt_send);
         bt_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Chat chat = new Chat();
-                BmobUser bmobUser = BmobUser.getCurrentUser(ChatActivity.this);
-                chat.setMessage(et_message.getText().toString());
-                chat.setFrom(bmobUser.getUsername());
-                chat.save(ChatActivity.this, new SaveListener() {
-                    @Override
-                    public void onSuccess() {
+                if(et_message.getText().toString().equals("")){
+                    ToastHelper.Toast("不能发送空白内容");
+                } else {
+                    Chat chat = new Chat();
+                    BmobUser bmobUser = BmobUser.getCurrentUser(ChatActivity.this);
+                    chat.setMessage(et_message.getText().toString());
+                    chat.setFrom(bmobUser.getUsername());
+                    chat.save(ChatActivity.this, new SaveListener() {
+                        @Override
+                        public void onSuccess() {
 
-                    }
+                        }
 
-                    @Override
-                    public void onFailure(int i, String s) {
-                        ToastHelper.Toast("failure");
-                    }
-                });
+                        @Override
+                        public void onFailure(int i, String s) {
+                            ToastHelper.Toast("failure");
+                        }
+                    });
+                    et_message.setText("");
+                }
             }
         });
 
@@ -119,6 +115,7 @@ public class ChatActivity extends BaseActivity{
 
     @Override
     protected void onDestroy() {
+        unregisterReceiver(dataChangeReceiver);
         LogHelper.e("destory");
         super.onDestroy();
     }
@@ -137,6 +134,27 @@ public class ChatActivity extends BaseActivity{
             finish();
         }
         return true;
+
     }
 
+    /**
+     * 广播注册
+     */
+    public void register(){
+        //TODO 将其他需要注册的广播写在这里
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("dataChange");
+        registerReceiver(dataChangeReceiver,intentFilter);
+    }
+
+    class DataChangeReceiver extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Message mMessage = (Message) intent.getSerializableExtra("message");
+            WeChatApplication.messageList.add(mMessage);
+            chatAdapter.notifyItemInserted(WeChatApplication.messageList.size()-1);
+            rv_message.scrollToPosition(WeChatApplication.messageList.size()-1);
+        }
+    }
 }

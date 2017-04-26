@@ -49,6 +49,10 @@
         <activity android:name=".Activity.Login_Register.Login"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize"></activity>
+        <service android:name=".Service.DataChangeService"
+            android:enabled="true"
+            android:exported="true"
+            />
     </application>
 
 </manifest>

@@ -1,10 +1,12 @@
 package com.example.wechat.Chat;
 
+import java.io.Serializable;
+
 /**
  * Created by 铖哥 on 2017/4/23.
  */
 
-public class Message {
+public class Message implements Serializable {
 
     String message;
     String createAt;

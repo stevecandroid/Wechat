@@ -6,15 +6,19 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.wechat.Chat.Message;
 import com.example.wechat.Uitls.ActivityHelper;
 import com.example.wechat.Uitls.LogHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by 铖哥 on 2017/4/23.
  */
 
 public class WeChatApplication extends Application {
-
+    public static List<Message> messageList = new ArrayList<>();
     private static Context mContext;
 
 
