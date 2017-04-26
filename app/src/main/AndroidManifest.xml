@@ -29,30 +29,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".Activity.Start.Start">
+        <activity android:name=".Activity.Start.Start">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.Login_Register.Register"
-            android:launchMode="singleTask"/>
-
-        <activity android:name=".Activity.MainActivity.MainActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".Activity.Login_Register.Register"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".Activity.MainActivity.MainActivity"
+            android:launchMode="singleTask" />
         <activity
             android:name=".Activity.ChatActivity.ChatActivity"
+            android:label="多人聊天室"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".Activity.Login_Register.Login"
             android:launchMode="singleTask"
-            android:label="多人聊天室" />
-        <activity android:name=".Activity.Login_Register.Login"
-            android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize"></activity>
-        <service android:name=".Service.DataChangeService"
+            android:windowSoftInputMode="adjustResize" />
+
+        <service
+            android:name=".Service.DataChangeService"
             android:enabled="true"
-            android:exported="true"
-            />
+            android:exported="true" />
+
+        <activity android:name=".Activity.PersonalPageActivity.PersonalPageActivity"></activity>
     </application>
 
 </manifest>

@@ -9,5 +9,6 @@
     <color name="colcorDeepGrey">#40403b</color>
     <color name="colcorWhite">#ffffffff</color>
     <color name="colcorBule">#4698f4</color>
+    <color name="colorLightBule">#00b0ff</color>
     <color name="toolBarGrey">#292e32</color>
 </resources>
